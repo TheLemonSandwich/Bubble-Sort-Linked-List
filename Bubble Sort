@@ -1,0 +1,116 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct node
+{
+	int num;
+	node* next;
+	node* prev;
+};
+void Clear();
+class Sorting
+{
+public:
+	void BubbleSort(int);
+	void Append();
+	void Display();
+
+	Sorting()
+	{
+		head = NULL;
+		tail = NULL;
+	}
+private:
+	node* head;
+	node* tail;
+	node* temp;
+	node* a;
+	int counter;
+};
+void Sorting::Append()
+{
+	if (head != NULL)
+	{
+		a = new node;
+		cout << ">>\t";
+		cin >> a->num;
+		a->next = NULL;
+		a->prev = temp;
+		temp->next = a;
+		temp = a;
+		tail = a;
+	}
+	else
+	{
+		head = new node;
+		cout << ">>\t";
+		cin >> head->num;
+		head->next = NULL;
+		head->prev = NULL;
+		tail = head;
+		temp = tail;
+	}
+
+}
+void Sorting::BubbleSort(int counter)
+{
+	int count = 2;
+	node* temp2;
+	temp = head;
+	temp2 = head->next;
+	while (true)
+	{
+		if (counter == 2)
+			break;
+		while (count <= counter)
+		{
+			if (temp->num > temp2->num)
+				swap(temp->num, temp2->num);
+			temp = temp->next;
+			temp2 = temp2->next;
+			count++;
+		}
+		BubbleSort(--counter);
+	}
+
+}
+void Sorting::Display()
+{
+	cout << "Displaying Data\n";
+	temp = head;
+	while (temp != NULL)
+	{
+		cout << temp->num << endl;
+		temp = temp->next;
+	}
+	Clear();
+}
+void Clear()
+{
+	system("pause");
+	system("cls");
+}
+
+int main()
+{
+	Sorting s;
+	int counter = 0;
+	while (true)
+	{
+		cout << "1. Append\n";
+		cout << "Any other key to exit and sort\n";
+		char op;
+		cin >> op;
+		if (op == '1')
+		{
+			s.Append();
+			counter++;
+		}
+		else
+			break;
+	}
+	s.BubbleSort(counter);
+	s.Display();
+}
